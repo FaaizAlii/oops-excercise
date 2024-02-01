@@ -14,17 +14,34 @@ class Bank:
     def login(self):
         pass
 
-    def deposit(self):
-        pass
+    def deposit(self, username, amount):
+        with open("file.txt",'a+') as f:
+            file = f.read()
+            for line in file:
+                if line[0] == username:
+                    line[2] +=amount
+                    break
 
-    def withdraw(self):
-        pass
+
+    def withdraw(self, username, amount):
+        with open("file.txt",'a+') as f:
+            file = f.read()
+            for line in file:
+                if line[0] == username and line[2] >= amount:
+                    current = line[2]
+                    line[2] -=amount
+                else:
+                    print(f'your current balance is {current} please choose correct amount')
 
     def transfer(self):
         pass
 
-    def show_details(self):
-        pass
+    def show_details(self, username):
+        with open("file.txt",'a+') as f:
+            file = f.read()
+            for line in file:
+                if line[0] == username:
+                    print(line)
 
 if __name__ == '__main__':
     while True:
