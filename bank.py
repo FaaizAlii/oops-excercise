@@ -8,7 +8,8 @@ class Bank:
         self.cash = cash
 
     def create_user(self):
-        pass
+        with open('user_data', 'a+', encoding='utf-8') as file:
+            file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
 
     def login(self):
         pass
@@ -25,10 +26,9 @@ class Bank:
     def show_details(self):
         pass
 
-
 if __name__ == '__main__':
     while True:
-        choices = """
+        choices = int(input("""
             press 1 to create new account
             press 2 to login
             press 3 to show your details
@@ -37,5 +37,15 @@ if __name__ == '__main__':
             press 6 to Transfer money
             press 7 to Transfer money
             press 0 to exit
-        """
-        print(choices)
+                            
+        """))
+
+        if choices == 1:
+            ask_user = input('Enter Your name: ')
+            ask_pin = input('Enter Your pin: ')
+            ask_cash = int(input('How much cash do you want to deposit: '))
+            user = Bank(ask_user, ask_pin, ask_pin)
+            user.create_user()
+
+
+    
