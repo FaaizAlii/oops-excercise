@@ -2,18 +2,29 @@
 import time
 import os
 class Bank:
-    def __init__(self, username, pin, cash) -> None:
-        self.username = username
+    # def __init__(self, username, pin, cash) -> None:
+    #     self.username = username
+    #     self.pin = pin
+    #     self.cash = cash
+
+    def create_user(self, user_name, pin, cash):
+        self.username  = user_name
         self.pin = pin
         self.cash = cash
 
-    def create_user(self):
         with open('user_data.txt', 'a+', encoding='utf-8') as file:
             # file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
             file.write(f"{self.username} {self.pin} {self.cash}\n")
 
-    def login(self):
-        pass
+    def login(self, username, pin):
+            with open('user_data.txt', 'r', encoding='utf-8') as file:
+                user_data = file.read()
+                for data in user_data:
+                    if self.username in data and self.pin in data:
+                        return [self.username, self.cash]
+                    else:
+                        print('No Account. Please create acount first')
+                        return None
 
     def deposit(self, username, amount):
         with open("file.txt",'a+') as f:
@@ -44,6 +55,9 @@ class Bank:
                 if line[0] == username:
                     print(line)
 
+
+    
+
 if __name__ == '__main__':
     while True:
         choice = int(input("""
@@ -66,9 +80,11 @@ choice: """))
             ask_user = input('Enter Your name: ')
             ask_pin = input('Enter Your pin: ')
             ask_cash = int(input('How much cash do you want to deposit: '))
-            user = Bank(ask_user, ask_pin, ask_cash)
-            user.create_user()
+            user = Bank()
+            user.create_user(ask_user, ask_pin, ask_cash)
         
 
-
+        elif choice == 2:
+            user = Bank()
+            user.login(ask_user, ask_pin)
     
