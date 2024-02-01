@@ -8,7 +8,7 @@ class Bank:
         self.cash = cash
 
     def create_user(self):
-        with open('user_data', 'a+', encoding='utf-8') as file:
+        with open('user_data.txt', 'a+', encoding='utf-8') as file:
             file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
 
     def login(self):
