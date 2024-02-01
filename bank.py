@@ -1,6 +1,6 @@
 """ Bank Management System"""
-
-
+import time
+import os
 class Bank:
     def __init__(self, username, pin, cash) -> None:
         self.username = username
@@ -9,7 +9,8 @@ class Bank:
 
     def create_user(self):
         with open('user_data.txt', 'a+', encoding='utf-8') as file:
-            file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
+            # file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
+            file.write(f"{self.username} {self.pin} {self.cash}\n")
 
     def login(self):
         pass
@@ -45,24 +46,29 @@ class Bank:
 
 if __name__ == '__main__':
     while True:
-        choices = int(input("""
-            press 1 to create new account
-            press 2 to login
-            press 3 to show your details
-            press 4 to deposit money
-            press 5 to withdraw money
-            press 6 to Transfer money
-            press 7 to Transfer money
-            press 0 to exit
-                            
-        """))
+        choice = int(input("""
+press 1 to create new account
+press 2 to login
+press 3 to show your details
+press 4 to deposit money
+press 5 to withdraw money
+press 6 to Transfer money
+press 7 to Transfer money
+press 0 to exit
 
-        if choices == 1:
+choice: """))
+        # print(choices)
+        # choice = int(input("choose: "))
+        
+        if choice == 0:
+            break
+        elif choice == 1:
             ask_user = input('Enter Your name: ')
             ask_pin = input('Enter Your pin: ')
             ask_cash = int(input('How much cash do you want to deposit: '))
-            user = Bank(ask_user, ask_pin, ask_pin)
+            user = Bank(ask_user, ask_pin, ask_cash)
             user.create_user()
+        
 
 
     
