@@ -6,11 +6,14 @@ class Bank:
     #     self.username = username
     #     self.pin = pin
     #     self.cash = cash
+<<<<<<< HEAD
 
     def create_user(self, user_name, pin, cash):
         self.username  = user_name
         self.pin = pin
         self.cash = cash
+=======
+>>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
 
         with open('user_data.txt', 'a+', encoding='utf-8') as file:
             # file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
@@ -63,11 +66,6 @@ if __name__ == '__main__':
         choice = int(input("""
 press 1 to create new account
 press 2 to login
-press 3 to show your details
-press 4 to deposit money
-press 5 to withdraw money
-press 6 to Transfer money
-press 7 to Transfer money
 press 0 to exit
 
 choice: """))
@@ -83,8 +81,39 @@ choice: """))
             user = Bank()
             user.create_user(ask_user, ask_pin, ask_cash)
         
+        elif choice == 2:
+            ask_user = input('Enter Your name: ')
+            ask_pin = input('Enter Your pin: ')
+            user = Bank()
+            token = user.login(ask_user, ask_pin)
+            if token:
+                while True:
+                    choice = int(input("""
+                    press 1 to show your details
+                    press 2 to deposit money
+                    press 3 to withdraw money
+                    press 4 to Transfer money
+                    press 0 to logout
+                    """))
+                    if choice == 1:
+                        user.show_details()
+                    if choice == 2:
+                        cash = int(input("Enter cash to deposit: "))
+                        user.deposit(token, cash)
+                    if choice == 3:
+                        cash = int(input("Enter cash to Withdraw: "))
+                        user.withdraw(token, cash)
+                    if choice == 4:
+                        rec = input("enter receiver ID: ")
+                        user.transfer(token, rec)
 
+<<<<<<< HEAD
         elif choice == 2:
             user = Bank()
             user.login(ask_user, ask_pin)
     
+=======
+        
+        elif choice == 6:
+            pass
+>>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
