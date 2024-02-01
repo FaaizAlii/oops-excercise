@@ -4,12 +4,20 @@ class Library:
         self.author = author
         self.total_copies = total_copies
 
-    def display_details(self):
+    # def display_details(self):
+    #     print(f'The book title is: {self.title}')
+    #     print(f'The book author is: {self.author}')
+    #     print(f'Total number of copies are: {self.total_copies}')
+
+
+    def __str__(self):
         print(f'The book title is: {self.title}')
         print(f'The book author is: {self.author}')
         print(f'Total number of copies are: {self.total_copies}')
-
-
+    
+    
+    
+    
     def borrow_copy(self):
         if self.total_copies == 0:
             print('Sorry the book is not available')
@@ -50,4 +58,6 @@ class Member(Library):
         self.__roles[self.name] = 'admin'
         print(f'{self.name} You are now an admin.')
 
-    
+if __name__=='__main__':
+    book1 = Library(title='harry', author='ali', total_copies=11)
+    book1.__str__()
