@@ -6,14 +6,28 @@ class Bank:
     #     self.username = username
     #     self.pin = pin
     #     self.cash = cash
+<<<<<<< HEAD
 
-    def create_user(self):
+    def create_user(self, user_name, pin, cash):
+        self.username  = user_name
+        self.pin = pin
+        self.cash = cash
+=======
+>>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
+
         with open('user_data.txt', 'a+', encoding='utf-8') as file:
             # file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
             file.write(f"{self.username} {self.pin} {self.cash}\n")
 
-    def login(self):
-        pass
+    def login(self, username, pin):
+            with open('user_data.txt', 'r', encoding='utf-8') as file:
+                user_data = file.read()
+                for data in user_data:
+                    if self.username in data and self.pin in data:
+                        return [self.username, self.cash]
+                    else:
+                        print('No Account. Please create acount first')
+                        return None
 
     def deposit(self, username, amount):
         with open("file.txt",'a+') as f:
@@ -43,6 +57,9 @@ class Bank:
             for line in file:
                 if line[0] == username:
                     print(line)
+
+
+    
 
 if __name__ == '__main__':
     while True:
@@ -91,6 +108,13 @@ choice: """))
                         cash = int(input("enter cash to transfer"))
                         user.transfer(token, rec, cash)
 
+<<<<<<< HEAD
+        elif choice == 2:
+            user = Bank()
+            user.login(ask_user, ask_pin)
+    
+=======
         
         elif choice == 6:
             pass
+>>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
