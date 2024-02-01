@@ -79,7 +79,7 @@ choice: """))
                     press 0 to logout
                     """))
                     if choice == 1:
-                        user.show_details()
+                        user.show_details(token)
                     if choice == 2:
                         cash = int(input("Enter cash to deposit: "))
                         user.deposit(token, cash)
@@ -88,7 +88,8 @@ choice: """))
                         user.withdraw(token, cash)
                     if choice == 4:
                         rec = input("enter receiver ID: ")
-                        user.transfer(token, rec)
+                        cash = int(input("enter cash to transfer"))
+                        user.transfer(token, rec, cash)
 
         
         elif choice == 6:
