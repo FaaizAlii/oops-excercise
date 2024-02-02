@@ -6,14 +6,11 @@ class Bank:
     #     self.username = username
     #     self.pin = pin
     #     self.cash = cash
-<<<<<<< HEAD
 
     def create_user(self, user_name, pin, cash):
         self.username  = user_name
         self.pin = pin
         self.cash = cash
-=======
->>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
 
         with open('user_data.txt', 'a+', encoding='utf-8') as file:
             # file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
@@ -21,13 +18,13 @@ class Bank:
 
     def login(self, username, pin):
             with open('user_data.txt', 'r', encoding='utf-8') as file:
-                user_data = file.read()
-                for data in user_data:
-                    if self.username in data and self.pin in data:
-                        return [self.username, self.cash]
-                    else:
-                        print('No Account. Please create acount first')
-                        return None
+                line = file.readline()
+                user_data = line.strip().split()                
+                if username == user_data[0] and pin == str(user_data[1]):
+                    return [user_data[0], user_data[1]]
+                else:
+                    return None
+        
 
     def deposit(self, username, amount):
         with open("file.txt",'a+') as f:
@@ -48,7 +45,7 @@ class Bank:
                 else:
                     print(f'your current balance is {current} please choose correct amount')
 
-    def transfer(self):
+    def transfer(self, sender, rec, amount):
         pass
 
     def show_details(self, username):
@@ -96,7 +93,7 @@ choice: """))
                     press 0 to logout
                     """))
                     if choice == 1:
-                        user.show_details()
+                        user.show_details(token)
                     if choice == 2:
                         cash = int(input("Enter cash to deposit: "))
                         user.deposit(token, cash)
@@ -105,15 +102,4 @@ choice: """))
                         user.withdraw(token, cash)
                     if choice == 4:
                         rec = input("enter receiver ID: ")
-                        user.transfer(token, rec)
-
-<<<<<<< HEAD
-        elif choice == 2:
-            user = Bank()
-            user.login(ask_user, ask_pin)
-    
-=======
-        
-        elif choice == 6:
-            pass
->>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
+                        user.transfer(token, rec, cash)
