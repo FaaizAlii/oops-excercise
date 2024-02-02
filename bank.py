@@ -21,7 +21,7 @@ class Bank:
                 line = file.readline()
                 user_data = line.strip().split()                
                 if username == user_data[0] and pin == str(user_data[1]):
-                    return [user_data[0], user_data[1]]
+                    return [user_data[0], user_data[2]]
                 else:
                     return None
         
@@ -35,11 +35,11 @@ class Bank:
                     break
 
 
-    def withdraw(self, username, amount):
+    def withdraw(self, user, amount):
         with open("file.txt",'a+') as f:
             file = f.read()
             for line in file:
-                if line[0] == username and line[2] >= amount:
+                if line[0] == user[0] and line[2] >= amount:
                     current = line[2]
                     line[2] -=amount
                 else:
@@ -48,12 +48,8 @@ class Bank:
     def transfer(self, sender, rec, amount):
         pass
 
-    def show_details(self, username):
-        with open("file.txt",'a+') as f:
-            file = f.read()
-            for line in file:
-                if line[0] == username:
-                    print(line)
+    def show_details(self, user):
+        print(user[0])
 
 
     
@@ -80,7 +76,7 @@ choice: """))
         
         elif choice == 2:
             ask_user = input('Enter Your name: ')
-            ask_pin = input('Enter Your pin: ')
+            ask_pin = int(input('Enter Your pin: '))
             user = Bank()
             token = user.login(ask_user, ask_pin)
             if token:
@@ -91,7 +87,7 @@ choice: """))
                     press 3 to withdraw money
                     press 4 to Transfer money
                     press 0 to logout
-                    """))
+choose:"""))
                     if choice == 1:
                         user.show_details(token)
                     if choice == 2:
@@ -102,4 +98,5 @@ choice: """))
                         user.withdraw(token, cash)
                     if choice == 4:
                         rec = input("enter receiver ID: ")
+                        cash = int(input("enter cash to transfer"))
                         user.transfer(token, rec, cash)
