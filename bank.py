@@ -6,28 +6,26 @@ class Bank:
     #     self.username = username
     #     self.pin = pin
     #     self.cash = cash
-<<<<<<< HEAD
 
     def create_user(self, user_name, pin, cash):
         self.username  = user_name
         self.pin = pin
         self.cash = cash
-=======
->>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
 
         with open('user_data.txt', 'a+', encoding='utf-8') as file:
             # file.writelines([self.username + ' ' + str(self.pin) + ' ' + str(self.cash)])
             file.write(f"{self.username} {self.pin} {self.cash}\n")
 
     def login(self, username, pin):
-            with open('user_data.txt', 'r', encoding='utf-8') as file:
-                user_data = file.read()
-                for data in user_data:
-                    if self.username in data and self.pin in data:
-                        return [self.username, self.cash]
-                    else:
-                        print('No Account. Please create acount first')
-                        return None
+        with open('user_data.txt', 'r', encoding='utf-8') as file:
+            for line in file:
+                values = line.strip().split()
+                if username == values[0] and str(pin) == values[1]:
+                    return [values[0], values[2]]
+
+            # If no matching user was found
+            print('No Account. Please create an account first')
+            return None
 
     def deposit(self, username, amount):
         with open("file.txt",'a+') as f:
@@ -38,11 +36,11 @@ class Bank:
                     break
 
 
-    def withdraw(self, username, amount):
+    def withdraw(self, user, amount):
         with open("file.txt",'a+') as f:
             file = f.read()
             for line in file:
-                if line[0] == username and line[2] >= amount:
+                if line[0] == user[0] and line[2] >= amount:
                     current = line[2]
                     line[2] -=amount
                 else:
@@ -51,12 +49,8 @@ class Bank:
     def transfer(self):
         pass
 
-    def show_details(self, username):
-        with open("file.txt",'a+') as f:
-            file = f.read()
-            for line in file:
-                if line[0] == username:
-                    print(line)
+    def show_details(self, user):
+        print(user[0])
 
 
     
@@ -83,7 +77,7 @@ choice: """))
         
         elif choice == 2:
             ask_user = input('Enter Your name: ')
-            ask_pin = input('Enter Your pin: ')
+            ask_pin = int(input('Enter Your pin: '))
             user = Bank()
             token = user.login(ask_user, ask_pin)
             if token:
@@ -94,9 +88,9 @@ choice: """))
                     press 3 to withdraw money
                     press 4 to Transfer money
                     press 0 to logout
-                    """))
+choose:"""))
                     if choice == 1:
-                        user.show_details()
+                        user.show_details(token)
                     if choice == 2:
                         cash = int(input("Enter cash to deposit: "))
                         user.deposit(token, cash)
@@ -105,15 +99,5 @@ choice: """))
                         user.withdraw(token, cash)
                     if choice == 4:
                         rec = input("enter receiver ID: ")
-                        user.transfer(token, rec)
-
-<<<<<<< HEAD
-        elif choice == 2:
-            user = Bank()
-            user.login(ask_user, ask_pin)
-    
-=======
-        
-        elif choice == 6:
-            pass
->>>>>>> 78d46d84ca85350c1a0d51c084ed5fc8933d654d
+                        cash = int(input("enter cash to transfer"))
+                        user.transfer(token, rec, cash)
