@@ -18,13 +18,21 @@ class Bank:
 
     def login(self, username, pin):
             with open('user_data.txt', 'r', encoding='utf-8') as file:
-                line = file.readline()
-                user_data = line.strip().split()                
-                if username == user_data[0] and pin == str(user_data[1]):
-                    return [user_data[0], user_data[2]]
-                else:
-                    return None
-        
+                line_number = 0
+                while True:
+                    line = file.readline()
+                    user_data = line.strip().split()                
+                    if user_data[0] != username and user_data[1] != str(pin):
+                        line_number += 1
+                        continue
+                    elif user_data[0] == username and user_data[1] == str(pin):
+                        print(f'Welcome {user_data[0]}')
+                        return user_data
+                    else:
+                        print("Invalid username or password")
+                        break
+                        
+                
 
     def deposit(self, username, amount):
         with open("file.txt",'a+') as f:
